@@ -819,7 +819,7 @@ class ECSTask(Infrastructure):
                 # "subnets": infra_params.prefect_subnet_ids,
                 "subnets": ['subnet-0c13e7811225122ef', 'subnet-0e3a6d6b12aef6952'],
                 # "securityGroups": [infra_params.prefect_security_group],
-                "securityGroups": 'sg-0d2409e93fcfb99e7',
+                "securityGroups": ['sg-0d2409e93fcfb99e7'],
             }
         }
 

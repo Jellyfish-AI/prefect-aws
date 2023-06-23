@@ -799,6 +799,32 @@ class ECSTask(Infrastructure):
         else:
             network_config = None
 
+        # TODO mpk this will be running in the agent's process
+        # so I won't be able to use a breakpoint
+        # let's just make the code change I think will make it work
+        # I believe the network_config object is going to look like this:
+        # {
+        #     "awsvpcConfiguration": {
+        #         "subnets": [s["SubnetId"] for s in subnets],
+        #         "assignPublicIp": "ENABLED",
+        #         "securityGroups": [],
+        #     }
+        # }
+
+        print(f'mpk network_config is:\n{network_config}')
+
+        network_config = {
+            "awsvpcConfiguration": {
+                "assignPublicIp": "DISABLED",
+                # "subnets": infra_params.prefect_subnet_ids,
+                "subnets": ['subnet-0c13e7811225122ef', 'subnet-0e3a6d6b12aef6952'],
+                # "securityGroups": [infra_params.prefect_security_group],
+                "securityGroups": 'sg-0d2409e93fcfb99e7',
+            }
+        }
+
+        print(f'mpk have changed network_config to:\n{network_config}')
+
         task_run = self._prepare_task_run(
             network_config=network_config,
             task_definition_arn=task_definition_arn,

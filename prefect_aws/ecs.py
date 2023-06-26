@@ -832,6 +832,8 @@ class ECSTask(Infrastructure):
         self.logger.info(f"{self._log_prefix}: Creating task run...")
         self.logger.debug("Task run payload\n" + yaml.dump(task_run))
 
+        print(f'mpk after _prepare_task_run (so after customizations have been applied), network_config is:\n{task_run["networkConfiguration"]}')
+
         try:
             task = self._run_task(ecs_client, task_run)
             task_arn = task["taskArn"]
